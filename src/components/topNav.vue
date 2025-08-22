@@ -1,6 +1,43 @@
+<script setup>
+import { ref, onMounted } from 'vue'
+
+const profileDropdown = ref(null)
+const profileButton = ref(null)
+const mobileChat = ref(null)
+const toggleChatBtn = ref(null)
+const closeMobileChat = ref(null)
+
+onMounted(() => {
+  // Profile button toggle
+  profileButton.value.addEventListener('click', () => {
+    profileDropdown.value.classList.toggle('hidden')
+  })
+
+  document.addEventListener('click', (e) => {
+    if (!profileButton.value.contains(e.target) && !profileDropdown.value.contains(e.target)) {
+      profileDropdown.value.classList.add('hidden')
+    }
+  })
+
+  // Chat drawer toggle (if mobile chat exists in your layout)
+  if (toggleChatBtn.value) {
+    toggleChatBtn.value.addEventListener('click', () => {
+      mobileChat.value.classList.toggle('translate-x-full')
+    })
+  }
+
+  if (closeMobileChat.value) {
+    closeMobileChat.value.addEventListener('click', () => {
+      mobileChat.value.classList.add('translate-x-full')
+    })
+  }
+})
+</script>
+
 <template>
   <header class="bg-white border-b shadow-sm fixed top-0 inset-x-0 z-50">
     <div class="max-w-7xl mx-auto h-16 flex items-center justify-between px-4 sm:px-6 lg:px-8">
+      <!-- Logo + Search -->
       <div class="flex items-center space-x-4">
         <a href="feed.html" class="text-2xl font-bold text-indigo-600">EduConnect</a>
         <div class="hidden md:block">
@@ -11,7 +48,10 @@
           />
         </div>
       </div>
+
+      <!-- Right controls -->
       <div class="flex items-center space-x-4">
+        <!-- Notification button -->
         <button class="relative text-gray-600 hover:text-indigo-600 focus:outline-none">
           <svg
             class="w-6 h-6"
@@ -31,9 +71,12 @@
             >3</span
           >
         </button>
+
+        <!-- Mobile chat button -->
         <button
-          class="relative text-gray-600 hover:text-indigo-600 focus:outline-none md:hidden"
+          ref="toggleChatBtn"
           id="toggle-chat-mobile"
+          class="relative text-gray-600 hover:text-indigo-600 focus:outline-none md:hidden"
         >
           <svg
             class="w-6 h-6"
@@ -58,8 +101,14 @@
             >2</span
           >
         </button>
+
+        <!-- Profile dropdown -->
         <div class="relative">
-          <button id="profile-button" class="flex items-center focus:outline-none">
+          <button
+            ref="profileButton"
+            id="profile-button"
+            class="flex items-center focus:outline-none"
+          >
             <img
               src="https://images.unsplash.com/photo-1499714608240-22fc6ad53fb2?auto=format&fit=facearea&facepad=3&w=64&h=64&q=80"
               alt="User avatar"
@@ -67,12 +116,13 @@
             />
           </button>
           <div
+            ref="profileDropdown"
             id="profile-dropdown"
             class="hidden absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg py-2 z-10"
           >
-            <a href="profile.html" class="block px-4 py-2 text-gray-600 hover:bg-gray-100"
-              >View Profile</a
-            >
+            <router-link to="/profile" class="block px-4 py-2 text-gray-600 hover:bg-gray-100"
+              >View profile
+            </router-link>
             <a href="#settings" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Settings</a>
             <a href="#logout" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Log Out</a>
           </div>
@@ -80,4 +130,14 @@
       </div>
     </div>
   </header>
+
+  <!-- Mobile chat drawer (hidden by default) -->
+  <div
+    ref="mobileChat"
+    id="mobile-chat"
+    class="fixed top-0 right-0 w-64 h-full bg-white shadow transform translate-x-full transition-transform"
+  >
+    <button ref="closeMobileChat" id="close-mobile-chat" class="p-2 text-red-500">Close</button>
+    <p class="p-4">Chat content here…</p>
+  </div>
 </template>

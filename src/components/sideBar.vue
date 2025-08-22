@@ -4,7 +4,7 @@
     <div>
       <h3 class="text-lg font-semibold mb-4">Navigation</h3>
       <nav class="space-y-2">
-        <a href="app.vue" class="flex items-center text-indigo-600 font-medium">
+        <router-link to="/" class="flex items-center text-indigo-600 font-medium">
           <svg
             class="w-5 h-5 mr-2"
             fill="none"
@@ -15,8 +15,11 @@
             <path stroke-linecap="round" stroke-linejoin="round" d="M8 17l4-4-4-4m8 8l-4-4 4-4" />
           </svg>
           Feed
-        </a>
-        <a href="communities.vue" class="flex items-center text-gray-600 hover:text-indigo-600">
+        </router-link>
+        <router-link
+          to="/communities"
+          class="flex items-center text-gray-600 hover:text-indigo-600"
+        >
           <svg
             class="w-5 h-5 mr-2"
             fill="none"
@@ -31,8 +34,11 @@
             />
           </svg>
           Communities
-        </a>
-        <a href="assignments.html" class="flex items-center text-gray-600 hover:text-indigo-600">
+        </router-link>
+        <router-link
+          to="/assignments"
+          class="flex items-center text-gray-600 hover:text-indigo-600"
+        >
           <svg
             class="w-5 h-5 mr-2"
             fill="none"
@@ -47,8 +53,8 @@
             />
           </svg>
           Assignments
-        </a>
-        <a href="#" class="flex items-center text-gray-600 hover:text-indigo-600">
+        </router-link>
+        <router-link to="/events" class="flex items-center text-gray-600 hover:text-indigo-600">
           <svg
             class="w-5 h-5 mr-2"
             fill="none"
@@ -63,8 +69,8 @@
             />
           </svg>
           Events
-        </a>
-        <a href="chat.html" class="flex items-center text-gray-600 hover:text-indigo-600">
+        </router-link>
+        <router-link to="/chats" class="flex items-center text-gray-600 hover:text-indigo-600">
           <svg
             class="w-5 h-5 mr-2"
             fill="none"
@@ -79,7 +85,7 @@
             />
           </svg>
           Chat
-        </a>
+        </router-link>
       </nav>
     </div>
     <!-- Communities list (mini) -->
